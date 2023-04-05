@@ -1,0 +1,233 @@
+<!DOCTYPE HTML>
+<!--
+	Arcana by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Gauthier Thurin</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+	</head>
+	<body class="is-preload">
+		<div id="page-wrapper">
+
+			<!-- Header -->
+				<div id="header">
+
+					<!-- Logo -->
+						<h1><a href="index.html" id="logo">Gauthier Thurin <em> PhD student in Statistics</em></a></h1>
+
+					<!-- Nav -->
+					<nav id="nav">
+							<ul>
+								<li><a href="index.html">Home</a></li>
+								<li><a href="research.html">Research</a></li>
+								<li  class="current"><a href="codes.html">Codes and Tutorials</a></li>
+								<li><a href="vita.html">Curriculum Vitae</a></li>
+								<!-- <li><a href="right-sidebar.html">Right Sidebar</a></li> -->
+							</ul>
+						</nav>
+				</div>
+
+			<!-- Main -->
+				<section class="wrapper style1">
+					<div class="container">
+						<div class="row gtr-200">
+							<div class="col-8 col-12-narrower">
+								<div id="content">
+
+									<!-- Content -->
+
+										<article>
+											<header>
+												<h2> 1. Les quantiles de Monge-Kantorovich </h2>
+												<p>1.1. Premiers concepts.</p>
+											</header>
+											
+											<p> L'idée générale des quantiles de MK est que le <strong> transport </strong> d'une loi de référence vers une distribution quelconque permet de caractériser cette distribution et d'ordonner des observations à la manière d'une profondeur statistique. </p>
+											<p> Il est important de remarquer que, en dimension 1, la fonction quantile se trouve être une carte de transport optimal, ce qui fait de cette définition une généralisation du cas univarié, voir la section B.3 de Hallin et al. (2021). </p>
+											<p>
+											La figure suivante illustre l'idée du <strong> transport </strong> d'un ordre statistique connu sur une loi de référence (à gauche) vers une distribution quelconque (à droite). 
+											</p>
+
+											<span class="image featured">
+											<img 
+											src="images/figure1.png" 
+											alt="" />
+											</span>
+
+											<p>Cet ordre, du centre vers l'extérieur, donne d'ailleurs son nom à nos quantiles multivariés pour ce choix de référence : on parle alors de quantiles <strong>center-outward</strong>. </p>
+											<p> Cette loi de référence, notée <I> Ud </I>, est définie comme le produit de deux variables aléatoires indépendantes, <I> R </I> et <I> V </I>, respectivement tirés de manière uniforme entre 0 et 1 sur la sphère unité. Ses échantillons sont ordonnés de l'origine vers l'extérieur puisque la probabilité qu'une observation <I> RV </I> tombe dans une boule de rayon <I> a </I> est exactement égale à <I> a </I>. Ainsi, les boules concentriques forment naturellement de bons candidats pour des régions quantiles multivariées.</p> 
+											<p>
+											Les contours quantiles de la loi en forme de banane sont alors les images par la fonction quantile de Monge-Kantorovich des sphères de rayon <I> a </I>, et délimitent des ensembles de probabilité <I> a </I> adaptés à la géométrie du nuage de points, grâce à la <a href="https://fr.wikipedia.org/wiki/Mesure_image">formule de changement de variable</a> pour une carte de transport. L'ordonnancement ainsi formé des données issues de la loi quelconque est un ordre <strong> transporté </strong> depuis celui que l'on connaît.</p>
+
+											<p> L'ordonnancement ainsi formé est un ordre "transporté" depuis celui que l'on connaît,  adapté à la géométrie du nuage de points. Parmi toutes les manières de transporter des lois de probabilité, reste à en choisir une particulière. </p>
+											<p> <strong> La fonction quantile center-outward d'une loi quelconque <I> P </I> est définie comme l'unique, presque sûrement, fonction transportant <I> Ud </I> vers <I> P </I> avec la régularité d'être le gradient d'une fonction convexe.</strong> </p>
+											<p>Être le gradient d'une fonction convexe s'interprète comme une généralisation de la monotonie au cadre multivarié, ce qui fait sens pour une fonction quantile.  </p>
+
+
+											<header>
+												<p>1.2. Estimation.</p>
+											</header>
+											
+											<p>Lorsque la loi de référence est de carré intégrable et lorsque <I> P </I> est approchée par une mesure empirique <I> Pn </I>, un estimateur naturel de la fonction quantile de Monge-Kantorovich est l'estimateur plug-in : la fonction quantile MK de <I> Pn </I>. D'après le théorème de Brenier (1991), cette unique carte de transport est solution du problème de transport optimal de Monge entre la loi continue <I> Ud </I> et la loi discrète <I> Pn </I>.</p>
+											<p> Ainsi, l'estimation des quantiles center-outward nécessite de résoudre un problème de transport optimal. Notamment, cet estimateur plug-in converge uniformément sur tout compact inclus dans le support de <I> Ud </I>, voir le théorème 3.1 de Chernozhukov et al. (2017) ou le théorème 4.1 de Ghosal et Sen (2021).</p>
+
+											<header>
+												<h2> 2. La fonction quantile caractérise la loi. </h2>
+												<p>2.1. En dimension 1.</p>
+											</header>
+											<p> Qu'est-ce que la fonction quantile univariée? Lorsque des données réelles sont ordonnées de la plus petite valeur à la plus grande, le quantile de niveau  <I> a </I> est la première valeur qui dépasse la proportion <I> a </I> des données. En particulier, cela permet de construire une boîte à moustaches.
+											</p>
+											<span class="image featured">
+											<img 
+											src="images/boxplot.png" 
+											alt="" />
+											</span>
+											<p> Curieusement, cette fonction quantile est liée de près à la théorie du transport optimal. Pour simuler des variables aléatoires, la méthode de la transformée inverse utilise le fait que, si <I> U </I> est tirée uniformément sur <I> [0,1] </I> et si <I> X </I> admet <I> Q </I> comme fonction quantile, alors <I> X </I> et <I> Q(U) </I> ont même loi.  Mieux encore, cette carte de transport est <strong> optimale </strong> au regard du transport optimal quadratique : c'est l'unique carte de transport qui soit aussi une dérivée d'une fonction convexe. Cette unicité permet d'affirmer que la fonction quantile <strong> caractérise </strong> la loi, puisque deux lois de même fonction quantile doivent être identiques. </p> 
+											<p> Pour illustrer la place centrale de la fonction quantile univariée, voici une figure issue de Bigot, (2020). </p> 
+											<span class="image featured">
+											<img 
+											src="images/Geodesics.png" 
+											alt="" />
+											</span>
+											<p> On peut définir des géodésiques (plus courts chemins) entre distributions de probabilité univariées par le biais des densités, ou par le biais des fonctions quantiles. L'un ou l'autre revient à considérer une certaine distance dans l'espace des lois de probabilité, et le choix de la fonction quantile correspond à la <strong> distance de Wasserstein </strong>, dont l'usage en statistiques est grandissant. Les courbes rouges correspondent à une loi <strong> intermédiaire </strong> entre les deux lois normales, où le sens du mot <strong> intermédiaire </strong> dépend de la distance considérée. D'un côté, il y a un mélange, de l'autre, on retrouve une loi normale. Pour aller plus loin sur ces questions de distance entre lois de probabilités, les notes de cours de Lénaïc Chizat sont disponibles <a href="https://lchizat.github.io/files2021ot/lecture6.pdf">en ligne</a></p>. 
+											<header>
+												<p>2.2. En dimension d.</p>
+											</header>
+											<p>
+											La définition des quantiles de Monge-Kantorovich se fonde sur la propriété d'être solution du transport optimal. Ainsi, c'est la définition qui assure de caractériser entièrement la loi.
+Par ailleurs, ceci permet de bénéficier des algorithmes d'estimation issus de la théorie du transport optimal.
+
+											</p>
+
+											<header>
+												<h2> 3. Une boîte à moustaches multivariée. </h2>
+											</header>
+											<p>
+											Les graphes descriptifs qui incluent les images des rayons et des contours quantiles de <I>Ud </I> fournissent ainsi une sorte de squelette de n'importe quelle distribution, sans avoir besoin d'aucun modèle statistique. 
+Bien sûr, ces graphes, bien que valables pour n'importe quelle dimension, ne peuvent plus être tracés lorsque la dimension dépasse 2. Pour autant, l'usage, hors visualisation, des quantiles reste simple et garde la même interprétation.
+
+Attardons nous alors un peu sur ces graphes pour comprendre comment les quantiles center-outward généralisent la boîte à moustaches. 									</p>
+											<p style="text-align: center" >
+											<img 
+											src="images/boxplot_banane.png" 
+											height="500"
+											width = "500"
+											alt="" />
+											</p>
+											<p> Les boîtes à moustaches univariées sont représentées pour chaque composante du vecteur aléatoire. À la fois pour les abscisses et pour les ordonnées, il y a 50% de chance de tomber entre le 1er quartile et le 2e quartile (les bords de chaque boîte). </p>
+											<p>
+Par ailleurs, les contours emboîtés délimitent des régions dont la probabilité est quantifiée, respectivement 0.1, 0.3, 0.5, 0.7 et 0.9. Autour du point médian, qui se trouve à l'intersection de toutes les courbes rouges, on est ainsi capable de déterminer une région où 50% des données vont être simulées, et ce d'une manière qui fait sens au regard de la géométrie du nuage de points. Ceci permet de faire le pont entre le concept de boîte à moustaches et les graphiques descriptifs.</p> 
+<p>
+NB : le positionnement relatif des médianes et du point médian est plutôt similaire, ce qui n'est pas un hasard. Naturellement, le point médian est capable de capter les <strong>symétries</strong> du nuage de point. Ceci est bien illustré pour la loi en forme de banane, puisque l'abscisse du point médian coincide avec la médiane des abscisses des points (boxplot du bas).
+											</p>
+											<h3> Sur le rôle des courbes de signe.</h3>
+											<p>
+											Les courbes de signe sont les images de rayons de la boule unité par la fonction quantile center-outward. Afin de donner de l'intuition, regardons d'un autre oeil la construction de la figure précédente, en passant par les courbes de signe. </p>
+											
+<p>
+Disons que 100 observations sont relevées sur une ligne droite. Construire une boîte à moustaches, c'est suivre cette ligne en numérotant les observations. Entre la 25e et la 75e, il y a 50% des données, et l'observation centrale est la 50e. 
+</p>
+
+<p>
+Supposons maintenant que cette ligne droite soit en fait une courbe. Rien n'empêche de refaire la même opération pour délimiter 50% des données, et obtenir une sorte de boxplot incurvé. La figure suivante représente cela sur une <strong> courbe de signe </strong> liée à la loi en forme de banane.
+											</p>
+										<p style="text-align: center" >
+											<img 
+											src="images/signcurvebanana.png" 
+											height="500"
+											width = "500"
+											alt="" />
+											</p>
+											<p>
+											On peut alors répéter l'opération pour autant de courbes de signe que l'on souhaite. L'ensemble des points rouges ainsi obtenus formera le contour quantile <strong>center-outward</strong> d'ordre 50%, et l'union des points jaunes, qui s'avère être en dimension 2 un singleton, cf Hallin et al. (2021), généralise une médiane multivariée. 
+
+Ce point de vue sur les concepts de quantiles de Monge-Kantorovich permet de se représenter l'aspect naturel de cette définition, ainsi que le rôle central des courbes de signe. 
+											</p>
+											
+											<header>
+												<h2> 4. Conclusion. </h2>
+											</header>
+											<p>
+											Ces notions de quantiles multivariés appellent à être appliquées dans tous les domaines des statistiques où la fonction quantile univariée intervient. D'une part, les articles fondateurs de ces notions de quantiles multivariées, Chernozhukov et al. (2017) et Hallin et al. (2021), ont montré que cette fonction quantile bénéficie des mêmes propriétés qui font de la fonction quantile univariée un bon outil d'inférence sur la droite réelle. D'autre part, ces définitions naturelles permettent d'imaginer des applications intuitivement, avec la même interprétation qu'en dimension 1. 
+
+Pour aller plus loin, voir Hallin, (Mars 2022), qui est une review récente de différentes applications de ces concepts.
+
+											</p>
+											<header>
+												<h2> Bibliographie. </h2>
+											</header>
+											<li> Bigot, (2020), Statistical data analysis in the Wasserstein space, ESAIM: PROCEEDINGS AND SURVEYS.
+											<li> Brenier, Y. (1991), Polar factorization and monotone rearrangement of vector-valued functions, Comm. Pure Appl. Math.
+											<li> Chernozhukov, V., Galichon, A., Hallin, M. and Henry, M. (2017), Monge-Kantorovich depth, quantiles, ranks and signs, The Annals of Statistics.
+											<li> Ghosal, P. and Sen, B. (2021), Multivariate ranks and quantiles using optimal transport : Consistency, rates and nonparametric testing, The Annals of Statistics.
+											<li> Hallin, M., del Barrio, E., Cuesta-Albertos, J., and Matran, C.(2021), Distribution and quantile functions, ranks and signs in dimension d : A measure transportation approach, The Annals of Statistics.
+											<li> Hallin, Marc, Measure Transportation and Statistical Decision Theory (March 2022). Annual Review of Statistics and Its Application. 											
+											
+																						
+									
+											
+										</article>
+
+								</div>
+							</div>
+							
+							<div class="col-4 col-12-narrower">
+								<div id="sidebar">
+
+									<!-- Sidebar -->
+
+										<section>
+											<h3>Plan</h3>
+											<ol>
+											<li> Les quantiles de Monge-Kantorovich. </li>
+											<li> La fonction quantile caractérise la loi. </li> 
+											<li> Une boîte à moustaches multivariée. </li> 
+											<li> Conclusion et bibliographie. </li> 
+											</ol>
+										</section>
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+
+			<!-- Footer -->
+				<div id="footer">
+							
+
+					<!-- Icons -->
+						<ul class="icons">
+							<li><a href="https://github.com/GauthierThurin?tab=repositories" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+							<li><a href="https://www.linkedin.com/in/gauthier-thurin-bbb7a51bb/" class="icon brands fa-linkedin-in"><span class="label">LinkedIn</span></a></li>
+							<li><a href="https://scholar.google.com/citations?hl=fr&user=SlaUQtMAAAAJ" class="icon brands fa-google-plus-g"><span class="label">Google+</span></a></li>
+						</ul>
+
+					<!-- Copyright -->
+						<div class="copyright">
+							<ul class="menu">
+							<li>&copy; Untitled. All rights reserved</li>
+							<li> Website configured with the help of a <a href="https://llaulin.pages.math.cnrs.fr/tutoriel_page.pdf">tutorial</a> from <a href="https://llaulin.pages.math.cnrs.fr/index-eng.html">Lucile Laulin</a>.
+							</li>
+							 <li> Design template: <a href="https://html5up.net/arcana">HTML5 UP</a></li>
+							</ul>
+						</div>
+				</div>
+
+		</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.dropotron.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
