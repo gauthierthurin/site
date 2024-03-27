@@ -47,8 +47,9 @@
 												<p>1.1. Premiers concepts.</p>
 											</header>
 											
-											<p> L'idée générale des quantiles de MK est de se ramener à des quantiles de référence sur une loi connue. En particulier, le <strong> transport </strong> d'une loi de référence vers une distribution quelconque permet de caractériser cette distribution et d'ordonner des observations à la manière d'une profondeur statistique. </p>
-											<p> Il est important de remarquer que, en dimension 1, la fonction quantile se trouve être une carte de transport optimal, ce qui fait de cette définition une généralisation du cas univarié, voir la section B.3 de Hallin et al. (2021). </p>
+											<p> Définir des quantiles multivariés revient à ordonner un nuage de points, autrement dit une loi de probabilité. Pour ce faire, l'idée générale des quantiles de Monge-Kantorovich est de se ramener à une loi connue, ou le problème est simplifié, par le biais du <strong> transport optimal </strong>. 
+								 </p>
+											<p> En dimension 1, la fonction quantile se trouve être une carte de transport optimal, ce qui fait de cette définition une généralisation du cas univarié, voir la section B.3 de Hallin et al. (2021). </p>
 											<p>
 											La figure suivante illustre l'idée du <strong> transport </strong> d'un ordre statistique connu sur une loi de référence (à gauche) vers une distribution quelconque (à droite). Les rayons (en rouge) et les cercles (en bleu) sont <strong> transportés </strong> sur la distribution de droite par une carte de transport optimal. 
 											</p>
@@ -60,9 +61,9 @@
 											</span>
 
 											<p> Via le transport inverse, (de droite à gauche), on peut ordonner les points de la loi en forme de banane du centre vers l'extérieur, ce qui donne d'ailleurs son nom à nos quantiles multivariés pour ce choix de référence : on parle alors de quantiles <strong>center-outward</strong>. </p>
-											<p> Cette loi de référence, notée <I> Ud </I>, est définie comme le produit de deux variables aléatoires indépendantes, <I> R </I> et <I> V </I>, respectivement tirés de manière uniforme entre 0 et 1 sur la sphère unité. Ses échantillons sont ordonnés de l'origine vers l'extérieur puisque la probabilité qu'une observation <I> RV </I> tombe dans une boule de rayon <I> a </I> est exactement égale à <I> a </I>. Ainsi, les boules concentriques forment naturellement de bons candidats pour des régions quantiles multivariées.</p> 
+											<p> Cette loi de référence, notée <I> Ud </I>, est définie comme le produit de deux variables aléatoires indépendantes, <I> R </I> et <I> V </I>, respectivement tirés de manière uniforme entre 0 et 1 sur la sphère unité. Ses échantillons sont ordonnés de l'origine vers l'extérieur puisque la probabilité qu'une observation <I> RV </I> tombe dans une boule de rayon <I> a </I> est exactement égale à <I> a</I>. Ainsi, les boules concentriques forment naturellement de bons candidats pour des régions quantiles multivariées, indexés par leur probabilité.</p> 
 											<p>
-											Les contours quantiles de la loi en forme de banane sont alors les images par la fonction quantile de Monge-Kantorovich des sphères de rayon <I> a </I>, et délimitent des ensembles de probabilité <I> a </I> adaptés à la géométrie du nuage de points, grâce à la <a href="https://fr.wikipedia.org/wiki/Mesure_image">formule de changement de variable</a> pour une carte de transport.</p>
+											Les images par <strong> la fonction quantile </strong> de ces sphères de rayon <I> a</I> délimitent alors des ensembles de probabilité <I> a</I> adaptés à la géométrie du nuage de points, grâce à la <a href="https://fr.wikipedia.org/wiki/Mesure_image">formule de changement de variable</a> pour une carte de transport. Encore faut-il choisir une certaine carte de transport parmi toutes celles possibles.</p>
 											
 											<p> <strong>Définition : La fonction quantile center-outward d'une loi quelconque <I> P </I> est définie comme l'unique, presque sûrement, fonction transportant <I> Ud </I> vers <I> P </I> avec la régularité d'être le gradient d'une fonction convexe.</strong> </p>
 											<p>Être le gradient d'une fonction convexe s'interprète comme une généralisation de la monotonie au cadre multivarié, ce qui fait sens pour une fonction quantile.  </p>
@@ -87,8 +88,8 @@
 											</span>
 																						
 											
-											<p> Curieusement, cette fonction quantile est liée de près à la théorie du transport optimal. Pour simuler des variables aléatoires, la méthode de la transformée inverse utilise le fait que, si <I> U </I> est tirée uniformément sur <I> [0,1] </I> et si <I> X </I> admet <I> Q </I> comme fonction quantile, alors <I> X </I> et <I> Q(U) </I> ont même loi.  Mieux encore, cette carte de transport est <strong> optimale </strong> au regard du transport optimal quadratique : c'est l'unique carte de transport qui soit aussi une dérivée d'une fonction convexe. Cette unicité permet d'affirmer que la fonction quantile <strong> caractérise </strong> la loi, puisque deux lois de même fonction quantile doivent être identiques. </p> 
-											<p> Pour illustrer la place centrale de la fonction quantile univariée, voici une figure issue de Bigot, (2020). </p> 
+											<p> Curieusement, cette fonction quantile est liée de près à la théorie du transport optimal. Pour simuler des variables aléatoires, la méthode de la transformée inverse utilise le fait que, si <I> U </I> est tirée uniformément sur <I> [0,1] </I> et si <I> X </I> admet <I> Q </I> comme fonction quantile, alors <I> X </I> et <I> Q(U) </I> ont même loi.  Mieux encore, cette carte de transport est <strong> optimale </strong> au regard du transport optimal quadratique : c'est l'unique carte de transport qui soit aussi une dérivée d'une fonction convexe. Cette unicité permet d'affirmer que la fonction quantile <strong> caractérise </strong> la loi, puisque deux lois de même fonction quantile doivent être identiques. Tout ceci reste vrai pour les notions de quantiles multivariés basés sur du transport optimal. </p> 
+											<p> La figure suivante est issue de Bigot, (2020). </p> 
 											<span class="image featured">
 											<img 
 											src="images/Geodesics.jpg" 
@@ -99,30 +100,25 @@
 											<header>
 												<h2> 3. Une boîte à moustaches multivariée. </h2>
 											</header>
-																						<p>
-											Par définition de la fonction quantile center-outward, elle caractérise la loi de probabilité. Allant de pair avec la boîte à moustaches, les rangs univariés sont au fondement de nombreuses applications. En particulier, des tests statistiques sont étendus au cadre multivarié dans plusieurs travaux récents sur les quantiles center-outward, dont Ghosal & Sen (2021) ou Hallin et al. (2021).											</p>
-
 											
 											<p>
-											Les graphes descriptifs qui incluent les images des rayons et des contours quantiles de <I>Ud </I> fournissent une sorte de squelette de n'importe quelle distribution, sans avoir besoin d'aucun modèle statistique. 
-Bien sûr, ces graphes, bien que valables pour n'importe quelle dimension, ne peuvent plus être tracés lorsque la dimension dépasse 2. Pour autant, l'usage, hors visualisation, des quantiles reste simple et garde la même interprétation.
-
-Attardons nous alors un peu sur ces graphes pour comprendre comment les quantiles center-outward généralisent la boîte à moustaches. 									</p>
+											Les graphes descriptifs qui incluent les images des rayons et des sphères de <I>Ud</I> sont une généralisation de la boîte à moustaches univariée, laquelle peut toujours être considérée pour chaque composante d'un vecteur aléatoire. 
+															</p>
 											<p style="text-align: center" >
 											<img 
 											src="images/boxplot_banane.jpg" 
 											width = 50%
 											alt="" />
 											</p>
-											<p> Les boîtes à moustaches univariées sont représentées pour chaque composante du vecteur aléatoire. À la fois pour les abscisses et pour les ordonnées, il y a 50% de chance de tomber entre le 1er quartile et le 2e quartile (les bords de chaque boîte). </p>
-											<p>
-Par ailleurs, les contours emboîtés délimitent des régions dont la probabilité est quantifiée, respectivement 0.1, 0.3, 0.5, 0.7 et 0.9. Autour du point médian, qui se trouve à l'intersection de toutes les courbes rouges, on est ainsi capable de déterminer une région où 50% des données vont être simulées, et ce d'une manière qui fait sens au regard de la géométrie du nuage de points. Ceci permet de faire le pont entre le concept de boîte à moustaches et les graphiques descriptifs.</p> 
+											<p> À la fois pour les abscisses et pour les ordonnées, il y a 50% de chance de tomber entre le 1er quartile et le 2e quartile (les bords de chaque boîte). 
+Mais, si on ne regarde que les composantes marginales, on néglige leur dépendance. 
+Les quantiles multivariés permettent de déterminer une région où 50% des données vont être simulées, mais d'une manière qui fait sens au regard de la géométrie du nuage de points. </p> 
 <p>
-NB : le positionnement relatif des médianes et du point médian est plutôt similaire, ce qui n'est pas un hasard. Naturellement, le point médian est capable de capter les <strong>symétries</strong> du nuage de point. Ceci est bien illustré pour la loi en forme de banane, puisque l'abscisse du point médian coincide avec la médiane des abscisses des points (boxplot du bas).
+NB : le positionnement relatif des médianes et du point médian est plutôt similaire, ce qui n'est pas un hasard. Naturellement, le point médian est capable de capter les <strong>symétries</strong> du nuage de point. Ceci est bien illustré pour la loi en forme de banane, puisque l'abscisse du point médian coincide avec la médiane des abscisses des points (boxplot du bas). 
 											</p>
-											<h3> Sur le rôle des courbes de signe.</h3>
+											<h3> Un système de coordonnées par nuage de points, ou le rôle des courbes de signe.</h3>
 											<p>
-											Les courbes de signe sont les images de rayons de la boule unité par la fonction quantile center-outward. Afin de donner de l'intuition, regardons d'un autre oeil la construction de la figure précédente, en passant par les courbes de signe. </p>
+																						 Les graphes descriptifs fournissent aussi une sorte de <strong> système de coordonnées courbe </strong> adapté au nuage de points. Afin de donner de l'intuition, regardons d'un autre oeil la construction de la figure précédente, en passant par les courbes de signe. </p>
 											
 <p>
 Disons que 100 observations sont relevées sur une ligne droite. Construire une boîte à moustaches, c'est suivre cette ligne en numérotant les observations. Entre la 25e et la 75e, il y a 50% des données, et l'observation centrale est la 50e. 
