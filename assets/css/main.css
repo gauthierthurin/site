@@ -8601,3 +8601,20 @@ input, select, textarea {
 			#wrapper.divided > .invert:first-child {
 				box-shadow: none !important;
 			}
+
+.banner {
+    position: relative;
+}
+
+.banner .arrow {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+}
+
+.banner .arrow img {
+    width: 40px;
+    height: auto;
+}
